@@ -4,16 +4,12 @@ pipeline {
 
   stages {
     stage('Build') {
-      steps {
-        // Ensure the build job name exists
-        build 'PES1UG21CS420-1' // This job likely doesn't exist, causing an error
-
-        // Add steps to install dependencies if needed (e.g., npm install)
-
-        // Compile the code, consider adding checks for missing headers/libraries
-        sh 'g++ cccc.cpp -o output'
-      }
-    }
+  steps {
+    noCache true  // Disable caching for this step
+    build 'PES1UG21CS420-1'
+    // ... (rest of your build steps)
+  }
+}
 
     stage('Test') {
       steps {
