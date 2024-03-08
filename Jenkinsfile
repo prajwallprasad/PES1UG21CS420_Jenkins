@@ -1,17 +1,24 @@
 pipeline {
-  agent any  // Potential error: Unrestricted agent could lead to resource exhaustion
+  // Consider using a dedicated agent or labels for controlled execution
+  agent any
 
   stages {
     stage('Build') {
       steps {
-        build 'PES1UG21CS420-1' // Potential error: Missing or incorrect build job name
-        sh 'g++ cccc.cpp -o output' // Potential error: Missing header files or libraries
+        // Ensure the build job name exists
+        build 'PES1UG21CS420-1' // This job likely doesn't exist, causing an error
+
+        // Add steps to install dependencies if needed (e.g., npm install)
+
+        // Compile the code, consider adding checks for missing headers/libraries
+        sh 'g++ cccc.cpp -o output'
       }
     }
 
     stage('Test') {
       steps {
-        sh './output' // Potential error: No error handling for test execution
+        // Execute the test and check for failures (e.g., exit code or output parsing)
+        sh './output'
       }
     }
 
@@ -24,7 +31,9 @@ pipeline {
 
   post {
     failure {
-      error 'Pipeline failed'  // Potential error: Uninformative error message
+      // Provide more informative error message
+      error '''Pipeline failed. 
+      Check the stage and step logs for details.'''
     }
   }
 }
